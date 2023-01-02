@@ -7,7 +7,7 @@ router.get("/:id", async function (request, response) {
     const { id } = request.params;
     // db.movies.findOne({ id:100 })
     const movie = await getMovieByID(id);
-    console.log(movie);
+    // console.log(movie);
     movie ? response.send(movie) : response.status(404).send({ message: "movie not found" });
 });
 
@@ -16,7 +16,6 @@ router.post("/", async function (request, response) {
     // db.movies.insertMany(data)   // express.json() inbuilt middleware for json to JS Object conversion from body
     // console.log(data);      //app.use(express.json()) applied to all post requests
     const result = await insertMovies(data);
-
     response.send(result);
 });
 
