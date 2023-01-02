@@ -3,7 +3,9 @@
 import express from "express"; // if type : "module" new type import
 import { MongoClient } from "mongodb";
 import moviesRouter from "./routes/movies.route.js";
+import usersRouter from "./routes/users.route.js";
 import * as dotenv from 'dotenv';
+import bcrypt from "bcrypt";
 dotenv.config();
 
 const app = express();
@@ -25,7 +27,20 @@ app.get("/", function (request, response) {
 });
 
 app.use("/movies", moviesRouter);
+app.use("/users", usersRouter);
 
 app.listen(PORT, () => console.log("server started in", PORT));
+
+// async function generateHashedPassword(password) {
+//     const NO_OF_ROUNDS = 10;
+//     const salt = await bcrypt.genSalt(NO_OF_ROUNDS);
+//     const hashedPassword = await bcrypt.hash(password, salt);
+//     console.log(salt);
+//     console.log(hashedPassword);
+//     return hashedPassword;
+// }
+
+// generateHashedPassword("password@123");
+
 export { client }
 
