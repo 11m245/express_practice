@@ -49,6 +49,7 @@ router.post("/login", async function (request, response) {
 
         if (isPasswordCheck) {
             const token = jwt.sign({ id: userFromDB._id }, process.env.SECRET_KEY);
+            console.log("token is", token);
             response.send({ message: "Successful Login", token: token });
         } else {
             response.status(401).send({ message: "invalid credentials try again" })
@@ -56,6 +57,8 @@ router.post("/login", async function (request, response) {
     }
 
 })
+
+
 
 
 export default router;

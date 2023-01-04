@@ -1,3 +1,4 @@
+import cors from "cors";
 // const express = require("express");
 // if type : "commonjs" in package.json old import
 import express from "express"; // if type : "module" new type import
@@ -21,7 +22,7 @@ await client.connect();
 console.log("mongo is connected");
 
 app.use(express.json()); // middleware for all post requests to convert json data from body into JS Object
-
+app.use(cors());
 app.get("/", function (request, response) {
     response.send(" hello world, welcome to api homepage");
 });

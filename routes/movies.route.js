@@ -1,9 +1,12 @@
+
 import express from "express";
+import { auth } from "../middleware/auth.js";
 import { getMovieByID, insertMovies, getMovies, deleteMovieById, updatMovieById } from "../services/movies.service.js";
+
 
 const router = express.Router();
 
-router.get("/:id", async function (request, response) {
+router.get("/:id", auth, async function (request, response) {
     const { id } = request.params;
     // db.movies.findOne({ id:100 })
     const movie = await getMovieByID(id);
@@ -31,18 +34,18 @@ router.get("/", async function (request, response) {
     if (request.query.rating) {
         request.query.rating = + request.query.rating;
     }
-    console.log(request.query);
+    // console.log(request.query);
     // db.movies.find({ })
     const movies = await getMovies(request);
-    console.log(movies);
+    // console.log(movies);
     response.send(movies);
 });
 
-router.delete("/:id", async function (request, response) {
+router.delete("/:id", auth, async function (request, response) {
     const { id } = request.params;
     // db.movies.deleteOne({ id:100 })
     const result = await deleteMovieById(id);
-    console.log(result);
+    // console.log(result);
     result.deletedCount > 0 ? response.send(result) : response.status(404).send({ message: "movie not found" });
 });
 
